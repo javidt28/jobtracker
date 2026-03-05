@@ -166,7 +166,7 @@ export function JobForm({ companies, job }: JobFormProps) {
             type="button"
             onClick={handleExtract}
             disabled={extracting}
-            className="shrink-0 rounded-lg border border-[var(--accent)] bg-[var(--accent)]/10 px-4 py-2 text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/20 disabled:opacity-50"
+            className="shrink-0 min-h-11 rounded-lg border border-[var(--accent)] bg-[var(--accent)]/10 px-4 py-2 text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/20 disabled:opacity-50"
           >
             {extracting ? "Extracting…" : "Extract"}
           </button>
@@ -349,18 +349,18 @@ export function JobForm({ companies, job }: JobFormProps) {
         />
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-[var(--accent)] px-4 py-2 font-medium text-[var(--accent-foreground)] hover:opacity-90 disabled:opacity-50"
+          className="min-h-11 rounded-lg bg-[var(--accent)] px-4 py-2 font-medium text-[var(--accent-foreground)] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? "Saving…" : isEdit ? "Save changes" : "Add application"}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
-          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-4 py-2 font-medium text-[var(--foreground)] hover:bg-[var(--muted)]"
+          className="min-h-11 rounded-lg border border-[var(--border)] bg-[var(--card)] px-4 py-2 font-medium text-[var(--foreground)] hover:bg-[var(--muted)]"
         >
           Cancel
         </button>

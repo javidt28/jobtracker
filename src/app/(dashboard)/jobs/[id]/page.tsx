@@ -73,7 +73,7 @@ export default async function JobDetailPage({
             href={job.job_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1 block truncate text-[var(--accent)] hover:underline"
+            className="mt-1 block break-all text-sm text-[var(--accent)] hover:underline sm:truncate"
             title={job.job_url}
           >
             {job.job_url}

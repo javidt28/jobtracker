@@ -57,7 +57,7 @@ function JobsIcon({ className }: { className?: string }) {
   );
 }
 
-type UserLike = { id: string; email: string | null };
+type UserLike = { id: string; email: string | null; displayName?: string | null; name?: string | null };
 
 export function DashboardNav({
   user,
@@ -76,6 +76,9 @@ export function DashboardNav({
   const router = useRouter();
   const supabase = createClient();
   const initials = getInitials(guest, user.email ?? null);
+  const displayLabel = guest
+    ? "Guest"
+    : (user.displayName ?? (user as UserLike).name ?? (user.email ? user.email.split("@")[0] : null) ?? "Account");
 
   async function signOut() {
     if (guest) {
@@ -112,7 +115,7 @@ export function DashboardNav({
               key={item.href}
               href={item.href}
               className={clsx(
-                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                "flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive
                   ? "bg-[var(--accent)]/15 text-[var(--accent)]"
                   : "text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
@@ -142,8 +145,8 @@ export function DashboardNav({
             {initials}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-[var(--foreground)]">
-              {guest ? "Guest" : "Account"}
+            <p className="truncate text-sm font-medium text-[var(--foreground)]" title={displayLabel}>
+              {displayLabel}
             </p>
             <button
               type="button"

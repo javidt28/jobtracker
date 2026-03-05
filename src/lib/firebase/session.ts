@@ -49,7 +49,11 @@ export async function clearFirebaseSessionCookie(): Promise<void> {
 
 export { FIREBASE_SESSION_COOKIE };
 
-export async function getFirebaseUser(): Promise<{ uid: string; email: string | null } | null> {
+export async function getFirebaseUser(): Promise<{
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+} | null> {
   if (!hasFirebaseConfig()) return null;
   const auth = getAdminAuth();
   if (!auth) return null;
@@ -57,8 +61,25 @@ export async function getFirebaseUser(): Promise<{ uid: string; email: string | 
   const sessionCookie = cookieStore.get(FIREBASE_SESSION_COOKIE)?.value;
   if (!sessionCookie) return null;
   try {
-    const decoded = await auth.verifySessionCookie(sessionCookie, true);
-    return { uid: decoded.uid, email: decoded.email ?? null };
+    const decoded = await auth.verifySessionCookie(sessionCookie, true) as {
+      uid: string;
+      email?: string | null;
+      name?: string | null;
+    };
+    let displayName: string | null = (decoded.name && String(decoded.name).trim()) || null;
+    if (!displayName && decoded.uid) {
+      try {
+        const userRecord = await auth.getUser(decoded.uid);
+        displayName = (userRecord.displayName && userRecord.displayName.trim()) || null;
+      } catch {
+        // ignore
+      }
+    }
+    return {
+      uid: decoded.uid,
+      email: decoded.email ?? null,
+      displayName,
+    };
   } catch {
     return null;
   }

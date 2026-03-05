@@ -47,7 +47,7 @@ export function PipelineBoard({ initialColumns, labels, guestMode = false }: Pip
   }
 
   return (
-    <div className="flex gap-4 overflow-x-auto pb-4">
+    <div className="-mx-4 flex gap-4 overflow-x-auto pb-4 pl-4 scroll-smooth [overscroll-behavior-x:contain] sm:mx-0 sm:pl-0" style={{ WebkitOverflowScrolling: "touch" } as React.CSSProperties}>
       {ORDER.map((status) => (
         <PipelineColumn
           key={status}

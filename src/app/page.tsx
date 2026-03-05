@@ -19,11 +19,11 @@ export default function HomePage() {
               Job search command center
             </span>
           </Link>
-          <nav className="flex items-center gap-3">
+          <nav className="flex items-center gap-2 sm:gap-3">
             {useBackend ? (
               <Link
                 href="/dashboard"
-                className="rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
+                className="inline-flex min-h-[44px] items-center rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
               >
                 Open app
               </Link>
@@ -31,13 +31,13 @@ export default function HomePage() {
               <>
                 <Link
                   href="/login"
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--muted-foreground)] transition hover:text-[var(--foreground)]"
+                  className="inline-flex min-h-[44px] items-center rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--muted-foreground)] transition hover:text-[var(--foreground)]"
                 >
                   Log in
                 </Link>
                 <Link
                   href="/signup"
-                  className="rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
+                  className="inline-flex min-h-[44px] items-center rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
                 >
                   Get started
                 </Link>
@@ -65,7 +65,7 @@ export default function HomePage() {
               {useBackend ? (
                 <Link
                   href="/dashboard"
-                  className="inline-flex items-center rounded-xl bg-[var(--accent)] px-6 py-3.5 text-base font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-[var(--accent)] px-6 py-3.5 text-base font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
                 >
                   Open dashboard
                 </Link>
@@ -73,13 +73,13 @@ export default function HomePage() {
                 <>
                   <Link
                     href="/signup"
-                    className="inline-flex items-center rounded-xl bg-[var(--accent)] px-6 py-3.5 text-base font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
+                    className="inline-flex min-h-[44px] items-center rounded-xl bg-[var(--accent)] px-6 py-3.5 text-base font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
                   >
                     Get started free
                   </Link>
                   <Link
                     href="/login"
-                    className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--card)] px-6 py-3.5 text-base font-medium text-[var(--foreground)] transition hover:bg-[var(--muted)]"
+                    className="inline-flex min-h-[44px] items-center rounded-xl border border-[var(--border)] bg-[var(--card)] px-6 py-3.5 text-base font-medium text-[var(--foreground)] transition hover:bg-[var(--muted)]"
                   >
                     Sign in
                   </Link>
