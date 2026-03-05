@@ -3,6 +3,27 @@ function apiUrl(path: string): string {
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
+export async function apiExtractJobFromUrl(url: string): Promise<{
+  title?: string;
+  description?: string;
+  company?: string;
+  source?: string;
+  location?: string;
+  salary_min?: number;
+  salary_max?: number;
+}> {
+  const res = await fetch(apiUrl("/api/jobs/extract"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ url }),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error((data as { error?: string }).error ?? "Failed to extract");
+  }
+  return res.json();
+}
+
 export async function apiCreateJob(body: Record<string, unknown>): Promise<{ id: string }> {
   const res = await fetch(apiUrl("/api/jobs"), {
     method: "POST",

@@ -28,9 +28,10 @@ export function JobCard({ job, isDragging, onDragStart }: JobCardProps) {
       draggable
       onDragStart={handleDragStart}
       className={clsx(
-        "block rounded-lg border border-[var(--border)] bg-[var(--card)] p-3 shadow-sm transition-shadow hover:shadow-md",
-        isDragging && "opacity-50 cursor-grabbing"
+        "block rounded-xl border border-[var(--border)] bg-[var(--card)] p-3.5 transition-shadow hover:shadow-md",
+        isDragging && "cursor-grabbing opacity-50"
       )}
+      style={{ boxShadow: "var(--shadow-sm)" }}
     >
       <p className="font-medium text-[var(--foreground)] line-clamp-2">
         {job.title}

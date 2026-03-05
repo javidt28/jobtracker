@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { apiCreateJob, apiUpdateJob } from "@/lib/api-client";
+import { apiCreateJob, apiUpdateJob, apiExtractJobFromUrl } from "@/lib/api-client";
 import { PIPELINE_ORDER, PIPELINE_LABELS } from "@/types/database";
 import type { PipelineStatus } from "@/types/database";
 
@@ -29,9 +29,11 @@ interface JobFormProps {
 
 export function JobForm({ companies, job }: JobFormProps) {
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
   const isEdit = !!job;
   const [useNewCompany, setUseNewCompany] = useState(!job?.company_id && !job?.company_name);
   const [loading, setLoading] = useState(false);
+  const [extracting, setExtracting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -100,8 +102,44 @@ export function JobForm({ companies, job }: JobFormProps) {
     }
   }
 
+  async function handleExtract() {
+    const form = formRef.current;
+    const urlInput = form?.elements.namedItem("job_url") as HTMLInputElement | null;
+    const url = urlInput?.value?.trim();
+    if (!url) {
+      setError("Paste a job posting URL first, then click Extract.");
+      return;
+    }
+    setError(null);
+    setExtracting(true);
+    try {
+      const data = await apiExtractJobFromUrl(url);
+      if (data.company) setUseNewCompany(true);
+      if (form) {
+        const set = (name: string, value: string | number | undefined) => {
+          const el = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
+          if (el && value !== undefined && value !== "") el.value = String(value);
+        };
+        if (data.title) set("title", data.title);
+        if (data.description) set("description", data.description);
+        if (data.source) set("source", data.source);
+        if (data.location) set("location", data.location);
+        if (data.salary_min != null) set("salary_min", data.salary_min);
+        if (data.salary_max != null) set("salary_max", data.salary_max);
+        if (data.company) {
+          setTimeout(() => set("company_name", data.company), 0);
+        }
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not extract from URL");
+    } finally {
+      setExtracting(false);
+    }
+  }
+
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
       className="space-y-6 rounded-xl border border-[var(--border)] bg-[var(--card)] p-6"
     >
@@ -110,6 +148,33 @@ export function JobForm({ companies, job }: JobFormProps) {
           {error}
         </div>
       )}
+
+      <div>
+        <label htmlFor="job_url" className="block text-sm font-medium text-[var(--foreground)]">
+          Job posting URL
+        </label>
+        <div className="mt-1 flex gap-2">
+          <input
+            id="job_url"
+            name="job_url"
+            type="url"
+            defaultValue={job?.job_url ?? ""}
+            className="min-w-0 flex-1 rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+            placeholder="https://..."
+          />
+          <button
+            type="button"
+            onClick={handleExtract}
+            disabled={extracting}
+            className="shrink-0 rounded-lg border border-[var(--accent)] bg-[var(--accent)]/10 px-4 py-2 text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/20 disabled:opacity-50"
+          >
+            {extracting ? "Extracting…" : "Extract"}
+          </button>
+        </div>
+        <p className="mt-1.5 text-xs text-[var(--muted-foreground)]">
+          Paste the link, then click Extract to fill title, company, description, location, salary, and source.
+        </p>
+      </div>
 
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-[var(--foreground)]">
@@ -254,20 +319,6 @@ export function JobForm({ companies, job }: JobFormProps) {
             className="mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
           />
         </div>
-      </div>
-
-      <div>
-        <label htmlFor="job_url" className="block text-sm font-medium text-[var(--foreground)]">
-          Job posting URL
-        </label>
-        <input
-          id="job_url"
-          name="job_url"
-          type="url"
-          defaultValue={job?.job_url ?? ""}
-          className="mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
-          placeholder="https://..."
-        />
       </div>
 
       <div>

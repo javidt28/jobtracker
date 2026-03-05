@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -15,7 +16,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Pipeline — Job tracking that gets you hired",
+  title: "JobsPipeline — Job tracking that gets you hired",
   description:
     "Track applications, ace interviews, and land your next role. The modern job search command center.",
 };
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${dmSans.variable} ${instrumentSerif.variable} antialiased font-sans`}
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );

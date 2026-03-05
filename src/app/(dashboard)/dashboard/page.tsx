@@ -59,17 +59,17 @@ export default async function DashboardPage() {
   const offers = byStatus.offer ?? 0;
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="font-display text-2xl font-normal text-[var(--foreground)]">
+    <div className="space-y-10">
+      <header>
+        <h1 className="font-display text-3xl font-normal tracking-tight text-[var(--foreground)]">
           Dashboard
         </h1>
-        <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-          Overview of your job search
+        <p className="mt-2 text-[var(--muted-foreground)]">
+          Here’s an overview of your job search
         </p>
-      </div>
+      </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Total applications" value={total} />
         <StatCard label="Active" value={active} />
         <StatCard label="Offers" value={offers} />
@@ -77,10 +77,13 @@ export default async function DashboardPage() {
           label="Conversion"
           value={total ? `${Math.round((offers / total) * 100)}%` : "—"}
         />
-      </div>
+      </section>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6">
+      <section className="grid gap-8 lg:grid-cols-2">
+        <div
+          className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6"
+          style={{ boxShadow: "var(--shadow-card)" }}
+        >
           <h2 className="font-semibold text-[var(--foreground)]">
             Pipeline funnel
           </h2>
@@ -97,29 +100,32 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6">
+        <div
+          className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6"
+          style={{ boxShadow: "var(--shadow-card)" }}
+        >
           <h2 className="font-semibold text-[var(--foreground)]">
             Quick actions
           </h2>
           <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-            Add or manage applications
+            Add or manage your applications
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/jobs/new"
-              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-foreground)] hover:opacity-90"
+              className="inline-flex items-center rounded-xl bg-[var(--accent)] px-5 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
             >
               Add application
             </Link>
             <Link
               href="/pipeline"
-              className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-sm font-medium text-[var(--foreground)] hover:bg-[var(--muted)]"
+              className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--card)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition hover:bg-[var(--muted)]"
             >
               View pipeline
             </Link>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -53,15 +53,15 @@ export default async function PipelinePage() {
   );
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl font-normal text-[var(--foreground)]">
+    <div className="space-y-8">
+      <header>
+        <h1 className="font-display text-3xl font-normal tracking-tight text-[var(--foreground)]">
           Pipeline
         </h1>
-        <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+        <p className="mt-2 text-[var(--muted-foreground)]">
           Drag cards between columns to update status
         </p>
-      </div>
+      </header>
 
       <PipelineBoard initialColumns={jobsByStatus} labels={PIPELINE_LABELS} guestMode={guest} />
     </div>

@@ -1,4 +1,4 @@
-# Pipeline — Job Tracking SaaS
+# JobsPipeline — Job Tracking SaaS
 
 A modern, portfolio-grade job application tracker built with **Next.js 16**, **TypeScript**, **Tailwind CSS**, and **Supabase**. Track applications, manage a pipeline, and see analytics at a glance.
 
@@ -121,14 +121,44 @@ jobtracker/
 └── README.md
 ```
 
-## Deploy
+## How to host
 
-- **Vercel**: Connect the repo, set the same env vars, deploy.
-- Ensure the Supabase project URL is allowed in **Authentication → URL Configuration** (e.g. `https://your-app.vercel.app`).
+| Option | Login & data | Best for |
+|--------|----------------|----------|
+| **Vercel** | ✅ Full (Firebase, Sheet, or Supabase) | Production app with auth and DB |
+| **Firebase Hosting (static)** | ❌ Demo only | Quick public demo, no backend |
+| **GitHub Pages** | ❌ Demo only | Portfolio link, no backend |
 
-- **GitHub Pages**: Static export; see workflow [.github/workflows/deploy-gh-pages.yml](.github/workflows/deploy-gh-pages.yml). Demo mode only.
+### 1. Vercel (full app with login + data)
 
-- **Firebase Hosting**: `npm run deploy:firebase` builds the static export and deploys to Firebase Hosting. Set your project in `.firebaserc`. Demo mode only on the static site. For full Firebase Auth + Firestore, run the app on Vercel (or another Node host) with Firebase env vars (see [docs/FIREBASE_SETUP.md](docs/FIREBASE_SETUP.md)).
+1. Push the repo to GitHub.
+2. Go to [vercel.com](https://vercel.com) → **Add New** → **Project** → import your repo.
+3. **Root Directory**: leave as `.` or set to `jobtracker` if the repo root is the parent folder.
+4. **Environment variables**: add the same vars you use in `.env.local` (Firebase, Google Sheet, or Supabase).  
+   - For **Firebase**: all `NEXT_PUBLIC_FIREBASE_*` and `FIREBASE_SERVICE_ACCOUNT_JSON`.  
+   - For **Supabase**: add your production URL to **Supabase → Authentication → URL Configuration**.
+5. Deploy. Your app will run at `https://your-project.vercel.app` with full auth and data.
+
+### 2. Firebase Hosting (demo only, no login)
+
+1. Install CLI: `npm install -g firebase-tools`
+2. Log in: `firebase login`
+3. In `jobtracker`, set your project in `.firebaserc`: `"default": "your-firebase-project-id"`
+4. Run: `npm run deploy:firebase`  
+   The site is at `https://your-project-id.web.app`. It runs in **demo mode** (mock data, no sign-in).
+
+### 3. GitHub Pages (demo only, no login)
+
+1. Push the repo to GitHub.
+2. **Settings** → **Pages** → **Source**: **GitHub Actions**.
+3. On every push to `main`, the workflow [.github/workflows/deploy-gh-pages.yml](.github/workflows/deploy-gh-pages.yml) builds and deploys.  
+   Site: `https://<username>.github.io/<repo-name>/`. **Demo mode** only.
+
+## Deploy (short ref)
+
+- **Vercel**: Connect repo, set env vars, deploy. Add your app URL in Supabase **Auth → URL Configuration** if using Supabase.
+- **Firebase Hosting**: `npm run deploy:firebase` (demo only).
+- **GitHub Pages**: Enable Pages from **GitHub Actions** (demo only).
 
 ## License
 

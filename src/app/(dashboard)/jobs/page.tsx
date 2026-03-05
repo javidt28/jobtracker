@@ -44,23 +44,23 @@ export default async function JobsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-8">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-display text-2xl font-normal text-[var(--foreground)]">
+          <h1 className="font-display text-3xl font-normal tracking-tight text-[var(--foreground)]">
             All jobs
           </h1>
-          <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+          <p className="mt-2 text-[var(--muted-foreground)]">
             Search and filter your applications
           </p>
         </div>
         <Link
           href="/jobs/new"
-          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--accent-foreground)] hover:opacity-90"
+          className="inline-flex shrink-0 items-center rounded-xl bg-[var(--accent)] px-5 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition hover:opacity-95"
         >
           Add application
         </Link>
-      </div>
+      </header>
 
       <JobsTable jobs={jobList} />
     </div>

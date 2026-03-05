@@ -23,17 +23,19 @@ export default async function DashboardLayout({
   if (STATIC_EXPORT) {
     return (
       <div className="flex min-h-screen bg-[var(--background)]">
-        <aside className="fixed inset-y-0 left-0 z-30 w-56 border-r border-[var(--border)] bg-[var(--card)]">
-          <div className="flex h-16 items-center border-b border-[var(--border)] px-4">
-            <Link href="/dashboard" className="font-display text-lg font-semibold text-[var(--foreground)]">
-              Pipeline
+        <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-[var(--border)] bg-[var(--card)]" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex h-16 shrink-0 items-center border-b border-[var(--border)] px-5">
+            <Link href="/dashboard" className="font-display text-lg font-semibold tracking-tight text-[var(--foreground)]">
+              JobsPipeline
             </Link>
           </div>
-          <DashboardNav user={{ id: "static", email: "Demo" }} role="user" guest />
+          <div className="flex min-h-0 flex-1 flex-col">
+            <DashboardNav user={{ id: "static", email: "Demo" }} role="user" guest />
+          </div>
         </aside>
-        <main className="flex-1 pl-56">
+        <main className="flex-1 pl-64">
           <GuestBanner />
-          <div className="min-h-screen py-8 px-6">{children}</div>
+          <div className="min-h-screen px-6 py-8 lg:px-8">{children}</div>
         </main>
       </div>
     );
@@ -47,17 +49,19 @@ export default async function DashboardLayout({
   if (guest) {
     return (
       <div className="flex min-h-screen bg-[var(--background)]">
-        <aside className="fixed inset-y-0 left-0 z-30 w-56 border-r border-[var(--border)] bg-[var(--card)]">
-          <div className="flex h-16 items-center border-b border-[var(--border)] px-4">
-            <Link href="/dashboard" className="font-display text-lg font-semibold text-[var(--foreground)]">
-              Pipeline
+        <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-[var(--border)] bg-[var(--card)]" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex h-16 shrink-0 items-center border-b border-[var(--border)] px-5">
+            <Link href="/dashboard" className="font-display text-lg font-semibold tracking-tight text-[var(--foreground)]">
+              JobsPipeline
             </Link>
           </div>
-          <DashboardNav user={GUEST_USER as { id: string; email: string | null }} role="user" guest />
+          <div className="flex min-h-0 flex-1 flex-col">
+            <DashboardNav user={GUEST_USER as { id: string; email: string | null }} role="user" guest />
+          </div>
         </aside>
-        <main className="flex-1 pl-56">
+        <main className="flex-1 pl-64">
           <GuestBanner />
-          <div className="min-h-screen py-8 px-6">{children}</div>
+          <div className="min-h-screen px-6 py-8 lg:px-8">{children}</div>
         </main>
       </div>
     );
@@ -68,16 +72,18 @@ export default async function DashboardLayout({
     if (!firebaseUser) redirect("/login");
     return (
       <div className="flex min-h-screen bg-[var(--background)]">
-        <aside className="fixed inset-y-0 left-0 z-30 w-56 border-r border-[var(--border)] bg-[var(--card)]">
-          <div className="flex h-16 items-center border-b border-[var(--border)] px-4">
-            <Link href="/dashboard" className="font-display text-lg font-semibold text-[var(--foreground)]">
-              Pipeline
+        <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-[var(--border)] bg-[var(--card)]" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex h-16 shrink-0 items-center border-b border-[var(--border)] px-5">
+            <Link href="/dashboard" className="font-display text-lg font-semibold tracking-tight text-[var(--foreground)]">
+              JobsPipeline
             </Link>
           </div>
-          <DashboardNav user={{ id: firebaseUser.uid, email: firebaseUser.email }} role="user" firebaseMode />
+          <div className="flex min-h-0 flex-1 flex-col">
+            <DashboardNav user={{ id: firebaseUser.uid, email: firebaseUser.email }} role="user" firebaseMode />
+          </div>
         </aside>
-        <main className="flex-1 pl-56">
-          <div className="min-h-screen py-8 px-6">{children}</div>
+        <main className="flex-1 pl-64">
+          <div className="min-h-screen px-6 py-8 lg:px-8">{children}</div>
         </main>
       </div>
     );
@@ -89,16 +95,18 @@ export default async function DashboardLayout({
     if (!sheetUser) redirect("/login");
     return (
       <div className="flex min-h-screen bg-[var(--background)]">
-        <aside className="fixed inset-y-0 left-0 z-30 w-56 border-r border-[var(--border)] bg-[var(--card)]">
-          <div className="flex h-16 items-center border-b border-[var(--border)] px-4">
-            <Link href="/dashboard" className="font-display text-lg font-semibold text-[var(--foreground)]">
-              Pipeline
+        <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-[var(--border)] bg-[var(--card)]" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex h-16 shrink-0 items-center border-b border-[var(--border)] px-5">
+            <Link href="/dashboard" className="font-display text-lg font-semibold tracking-tight text-[var(--foreground)]">
+              JobsPipeline
             </Link>
           </div>
-          <DashboardNav user={{ id: sheetUser.id, email: sheetUser.email }} role="user" sheetMode />
+          <div className="flex min-h-0 flex-1 flex-col">
+            <DashboardNav user={{ id: sheetUser.id, email: sheetUser.email }} role="user" sheetMode />
+          </div>
         </aside>
-        <main className="flex-1 pl-56">
-          <div className="min-h-screen py-8 px-6">{children}</div>
+        <main className="flex-1 pl-64">
+          <div className="min-h-screen px-6 py-8 lg:px-8">{children}</div>
         </main>
       </div>
     );
@@ -115,16 +123,18 @@ export default async function DashboardLayout({
 
     return (
       <div className="flex min-h-screen bg-[var(--background)]">
-        <aside className="fixed inset-y-0 left-0 z-30 w-56 border-r border-[var(--border)] bg-[var(--card)]">
-          <div className="flex h-16 items-center border-b border-[var(--border)] px-4">
-            <Link href="/dashboard" className="font-display text-lg font-semibold text-[var(--foreground)]">
-              Pipeline
+        <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-[var(--border)] bg-[var(--card)]" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex h-16 shrink-0 items-center border-b border-[var(--border)] px-5">
+            <Link href="/dashboard" className="font-display text-lg font-semibold tracking-tight text-[var(--foreground)]">
+              JobsPipeline
             </Link>
           </div>
-          <DashboardNav user={user} role={profile.role} />
+          <div className="flex min-h-0 flex-1 flex-col">
+            <DashboardNav user={user} role={profile.role} />
+          </div>
         </aside>
-        <main className="flex-1 pl-56">
-          <div className="min-h-screen py-8 px-6">{children}</div>
+        <main className="flex-1 pl-64">
+          <div className="min-h-screen px-6 py-8 lg:px-8">{children}</div>
         </main>
       </div>
     );

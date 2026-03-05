@@ -31,19 +31,19 @@ export function JobsTable({ jobs }: JobsTableProps) {
   }, [jobs, search, statusFilter]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div className="flex flex-wrap items-center gap-3">
         <input
           type="search"
           placeholder="Search roles or companies..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] w-64"
+          className="w-64 rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-2.5 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20"
         />
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter((e.target.value || "") as PipelineStatus | "")}
-          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-2.5 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20"
         >
           <option value="">All statuses</option>
           {(Object.entries(PIPELINE_LABELS) as [PipelineStatus, string][]).map(
@@ -59,20 +59,20 @@ export function JobsTable({ jobs }: JobsTableProps) {
         </span>
       </div>
 
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] overflow-hidden">
+      <div className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)]" style={{ boxShadow: "var(--shadow-card)" }}>
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b border-[var(--border)] bg-[var(--muted)]/50">
-              <th className="px-4 py-3 font-medium text-[var(--foreground)]">
+              <th className="px-5 py-3.5 font-medium text-[var(--foreground)]">
                 Role
               </th>
-              <th className="px-4 py-3 font-medium text-[var(--foreground)]">
+              <th className="px-5 py-3.5 font-medium text-[var(--foreground)]">
                 Company
               </th>
-              <th className="px-4 py-3 font-medium text-[var(--foreground)]">
+              <th className="px-5 py-3.5 font-medium text-[var(--foreground)]">
                 Status
               </th>
-              <th className="px-4 py-3 font-medium text-[var(--foreground)]">
+              <th className="px-5 py-3.5 font-medium text-[var(--foreground)]">
                 Applied
               </th>
               <th className="w-0" />
@@ -82,33 +82,33 @@ export function JobsTable({ jobs }: JobsTableProps) {
             {filtered.map((job) => (
               <tr
                 key={job.id}
-                className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--muted)]/30"
+                className="border-b border-[var(--border)] last:border-0 transition-colors hover:bg-[var(--muted)]/40"
               >
-                <td className="px-4 py-3">
+                <td className="px-5 py-3.5">
                   <Link
                     href={`/jobs/${job.id}`}
-                    className="font-medium text-[var(--foreground)] hover:text-[var(--accent)]"
+                    className="font-medium text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
                   >
                     {job.title}
                   </Link>
                 </td>
-                <td className="px-4 py-3 text-[var(--muted-foreground)]">
+                <td className="px-5 py-3.5 text-[var(--muted-foreground)]">
                   {job.company?.name ?? "—"}
                 </td>
-                <td className="px-4 py-3">
-                  <span className="inline-flex rounded-full bg-[var(--muted)] px-2.5 py-0.5 text-xs font-medium text-[var(--foreground)]">
+                <td className="px-5 py-3.5">
+                  <span className="inline-flex rounded-full bg-[var(--muted)] px-2.5 py-1 text-xs font-medium text-[var(--foreground)]">
                     {PIPELINE_LABELS[job.status]}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-[var(--muted-foreground)]">
+                <td className="px-5 py-3.5 text-[var(--muted-foreground)]">
                   {job.applied_at
                     ? new Date(job.applied_at).toLocaleDateString()
                     : "—"}
                 </td>
-                <td className="px-4 py-3">
+                <td className="px-5 py-3.5">
                   <Link
                     href={`/jobs/${job.id}`}
-                    className="text-[var(--accent)] hover:underline"
+                    className="text-sm font-medium text-[var(--accent)] transition-colors hover:underline"
                   >
                     View
                   </Link>

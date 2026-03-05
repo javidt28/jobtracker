@@ -50,20 +50,21 @@ export function PipelineColumn({
 
   return (
     <div
-      className={`flex min-w-[280px] flex-1 flex-col rounded-xl border border-[var(--border)] bg-[var(--muted)]/30 transition-colors ${
+      className={`flex min-w-[280px] flex-1 flex-col rounded-xl border border-[var(--border)] bg-[var(--muted)]/20 transition-colors ${
         isDragging ? "border-[var(--accent)]/50 bg-[var(--accent)]/5" : ""
       }`}
+      style={{ boxShadow: "var(--shadow-sm)" }}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       onDragLeave={onDragEnd}
     >
-      <div className="sticky top-0 z-10 border-b border-[var(--border)] bg-[var(--card)] px-4 py-3 rounded-t-xl">
+      <div className="sticky top-0 z-10 rounded-t-xl border-b border-[var(--border)] bg-[var(--card)] px-4 py-3.5">
         <h3 className="font-semibold text-[var(--foreground)]">{title}</h3>
-        <p className="text-xs text-[var(--muted-foreground)]">
+        <p className="mt-0.5 text-xs text-[var(--muted-foreground)]">
           {jobs.length} application{jobs.length !== 1 ? "s" : ""}
         </p>
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-3 min-h-[200px]">
+      <div className="flex min-h-[200px] flex-1 flex-col gap-2.5 p-3">
         {children}
       </div>
     </div>

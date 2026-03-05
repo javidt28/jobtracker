@@ -64,6 +64,23 @@ export default async function JobDetailPage({
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
+      {job.job_url && (
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--accent)]/5 px-4 py-3">
+          <p className="text-xs font-medium text-[var(--muted-foreground)]">
+            Job posting
+          </p>
+          <a
+            href={job.job_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1 block truncate text-[var(--accent)] hover:underline"
+            title={job.job_url}
+          >
+            {job.job_url}
+          </a>
+        </div>
+      )}
+
       <div className="flex items-start justify-between gap-4">
         <div>
           <Link
@@ -145,22 +162,6 @@ export default async function JobDetailPage({
             </div>
           )}
         </div>
-
-        {job.job_url && (
-          <div>
-            <p className="text-xs font-medium text-[var(--muted-foreground)]">
-              Job posting
-            </p>
-            <a
-              href={job.job_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 block text-[var(--accent)] hover:underline"
-            >
-              {job.job_url}
-            </a>
-          </div>
-        )}
 
         {company?.website && (
           <div>
