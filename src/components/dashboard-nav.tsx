@@ -76,9 +76,10 @@ export function DashboardNav({
   const router = useRouter();
   const supabase = createClient();
   const initials = getInitials(guest, user.email ?? null);
+  const u = user as UserLike;
   const displayLabel = guest
     ? "Guest"
-    : (user.displayName ?? (user as UserLike).name ?? (user.email ? user.email.split("@")[0] : null) ?? "Account");
+    : (u.displayName ?? u.name ?? (user.email ? user.email.split("@")[0] : null) ?? "Account");
 
   async function signOut() {
     if (guest) {
